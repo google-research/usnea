@@ -1,0 +1,42 @@
+* {
+  box-sizing: border-box;
+}
+
+:host {
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  margin: 0;
+}
+
+graph-editor {
+  flex: 1;
+  min-height: 100vh;
+  background-color: #7fdbff;
+}
+
+graph-inspector {
+  min-height: 100vh;
+  width: 300px;
+  background: #6495ed;
+}
+
+.full-screen {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: white;
+  font-size: 2em;
+  z-index: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+  flex-direction: column;
+
+  &.error {
+    color: red;
+  }
+}

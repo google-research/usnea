@@ -1,0 +1,53 @@
+<!--
+ Copyright 2020 Google LLC
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+-->
+
+<!-- Project metadata editor. -->
+<mat-card-header>
+  <mat-card-title>Edit Project</mat-card-title>
+</mat-card-header>
+
+<mat-card-content *ngIf="graph">
+  <mat-form-field>
+    <input
+      matInput
+      name="name"
+      placeholder="Title"
+      [(ngModel)]="graph.name"
+      (change)="onChange()"
+    />
+  </mat-form-field>
+
+  <mat-form-field>
+    <input
+      matInput
+      name="graph_id"
+      placeholder="URL name (no spaces)"
+      [(ngModel)]="graph.id"
+      (change)="onChange()"
+    />
+  </mat-form-field>
+
+  <button
+    mat-raised-button
+    class="preview-node"
+    type="button"
+    color="primary"
+    (click)="onPreview()"
+  >
+    <mat-icon>play_circle_outline</mat-icon>
+    Preview
+  </button>
+</mat-card-content>

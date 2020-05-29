@@ -1,0 +1,40 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+}
+
+::ng-deep .mat-card-header-text {
+  flex: 1;
+}
+
+button.delete-edge {
+  width: 100%;
+}
+
+.condition-type-select {
+  width: 70px;
+}
+
+.mutation-type-select {
+  width: 70px;
+}
+
+.key-field {
+  margin: 8px;
+  width: 60px;
+}
+
+.value-field {
+  width: 60px;
+  margin: 8px;
+}
+
+// TODO(pwnr): find a solution that doesnt use ng-deep and important
+::ng-deep.mat-tab-label, ::ng-deep.mat-tab-label-active {
+ min-width: 0 !important;
+ padding: 3px !important;
+ margin: 3px !important;
+ color: yellow;
+}

@@ -1,0 +1,51 @@
+form {
+  display: flex;
+  flex-direction: row;
+}
+
+mat-form-field.query {
+  flex-grow: 1;
+}
+
+// Right-align the plus icon.
+mat-action-list mat-icon {
+  order: 10;
+}
+
+::ng-deep .mat-list-item-content {
+  justify-content: space-between;
+}
+
+.add-edge {
+  margin-top: 8px;
+  width: 100%;
+}
+
+.actions button {
+  margin: 2px;
+}
+
+.label {
+  width: 100%;
+
+  .label-inner {
+    text-overflow: ellipsis;
+  }
+}
+
+.actions {
+  white-space: nowrap;
+}
+
+.positive {
+  background-color: #2ecc40;
+}
+
+.negative {
+  background-color: #ff4136;
+}
+
+#tester-list {
+  height: 200px;
+  overflow-y: scroll;
+}

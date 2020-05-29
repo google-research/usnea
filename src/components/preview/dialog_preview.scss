@@ -1,0 +1,81 @@
+$background-color: black;
+$text-color: white;
+
+:host {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  background: $background-color;
+  color: $text-color;
+  margin: auto;
+  clear: both;
+  width: 800px;
+}
+
+.spacer {
+  height: 15px;
+}
+
+#history {
+  overflow-x: hidden;
+  overflow-y: auto;
+  font-family: VT323, monospace;
+  font-size: 250%;
+  width: 800px;
+  flex: 1;
+  padding: 8px;
+
+  .user::before {
+    content: '> ';
+  }
+
+  .user {
+    color: gray;
+  }
+
+  .system {
+    font-weight: bold;
+  }
+
+}
+
+#user-input {
+  background: #333;
+  height: 64px;
+  padding: 12px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  input {
+    flex: 1;
+    padding: 8px;
+    background: $background-color;
+    color: $text-color;
+    border: none;
+    font-family: VT323, monospace;
+    font-size: 200%;
+  }
+
+  button {
+    width: 64px;
+  }
+}
+
+.blinking{
+    animation:blinkingText 1.2s infinite;
+}
+@keyframes blinkingText{
+    0%{     color: red;    }
+    20%{    color: blue; }
+    40%{    color: green; }
+    60%{    color: Moccasin;  }
+    90%{   color: yellow;    }
+}
+
+#title {
+  font-family: VT323, monospace;
+  font-size: 400%;
+  padding-bottom: 40px;
+  text-align: center;
+}

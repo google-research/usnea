@@ -1,0 +1,54 @@
+<!--
+ Copyright 2020 Google LLC
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+-->
+
+<mat-card id="node-edit-card">
+  <mat-card-header>
+    <mat-card-title>Edit Node</mat-card-title>
+    <button mat-raised-button class="preview-node" type="button" color="primary"
+        (click)="onPreview()">
+      <mat-icon>play_circle_outline</mat-icon>
+      Preview
+    </button>
+  </mat-card-header>
+
+  <mat-card-content>
+    <form>
+      <mat-form-field>
+        <input cdkTextareaAutosize matInput name="title" placeholder="Node name (Optional)" [(ngModel)]="node.title" (ngModelChange)="onNodeChange($event)" autocomplete="off">
+      </mat-form-field>
+
+      <mat-form-field>
+        <textarea cdkTextareaAutosize matInput name="prompt" placeholder="Prompt" [(ngModel)]="node.prompt" (ngModelChange)="onNodeChange($event)"></textarea>
+      </mat-form-field>
+
+      <mat-form-field *ngIf="!node.autoAdvance">
+        <textarea cdkTextareaAutosize matInput name="retryPrompt" placeholder="Retry Prompt" [(ngModel)]="node.retryPrompt" (change)="onNodeChange($event)"></textarea>
+      </mat-form-field>
+
+      <mat-checkbox name="autoAdvance" [(ngModel)]="node.autoAdvance" (change)="autoAdvanceToggled()">Auto-advance</mat-checkbox>
+    </form>
+  </mat-card-content>
+</mat-card>
+
+<div class="bottom">
+  <node-tester *ngIf="!node.autoAdvance" [node]="node"></node-tester>
+
+  <button mat-raised-button class="delete-node" *ngIf="!startNode" type="button" color="accent"
+          (click)="onDelete()">
+    <mat-icon>delete</mat-icon>
+    Delete Node
+  </button>
+</div>

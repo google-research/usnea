@@ -1,0 +1,71 @@
+<!--
+ Copyright 2020 Google LLC
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+-->
+
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>Test query</mat-card-title>
+    <mat-checkbox [(ngModel)]="interactive">Interactive</mat-checkbox>
+  </mat-card-header>
+
+  <mat-card-content>
+    <form>
+      <mat-form-field class="query">
+        <input matInput #query name="test" placeholder="Say something..." [(ngModel)]="utterance" [disabled]="loadingResults" autocomplete="off">
+      </mat-form-field>
+
+      <button mat-icon-button type="submit" color="primary" (click)="testUtterance()" aria-label="Test query" [disabled]="loadingResults">
+        <mat-icon>send</mat-icon>
+      </button>
+    </form>
+
+    <mat-progress-bar mode="indeterminate" *ngIf="loadingResults"></mat-progress-bar>
+    <div *ngIf="loadingError">
+      {{loadingError}}
+    </div>
+
+    <mat-divider *ngIf="candidate"></mat-divider>
+
+    <div *ngIf="candidate">
+      <h2>"{{candidate.utterance}}"</h2>
+      <mat-divider></mat-divider>
+
+      <mat-list id="tester-list">
+        <mat-list-item *ngFor="let scoredRule of candidate.scoredRules" (mouseenter)="startHover(scoredRule)" (mouseleave)="endHover(scoredRule)">
+          <span class="label">
+            <span class="label-inner">{{getScoredRuleLabel(scoredRule)}}</span>
+          </span>
+
+          <span class="actions">
+            <button mat-mini-fab aria-label="Add as positive example"
+                    (click)="addPositiveExample(scoredRule.rule)" class="positive" [disabled]="confirmed">
+              <mat-icon>add</mat-icon>
+            </button>
+
+            <button mat-mini-fab aria-label="Add as negative example"
+                    (click)="addNegativeExample(scoredRule.rule)" class="negative" [disabled]="confirmed">
+              <mat-icon>add</mat-icon>
+            </button>
+          </span>
+        </mat-list-item>
+      </mat-list>
+
+      <button mat-raised-button type="button" (click)="addNewEdge()" color="primary" class="add-edge" [disabled]="confirmed">
+        <mat-icon>add</mat-icon>
+        Add New Edge
+      </button>
+    </div>
+  </mat-card-content>
+</mat-card>

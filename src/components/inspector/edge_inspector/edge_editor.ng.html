@@ -1,0 +1,169 @@
+<!--
+ Copyright 2020 Google LLC
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+-->
+
+<mat-tab-group mat-align-tabs="center">
+  <mat-tab *ngIf="showRules()" label="Rules">
+    <div class="rules">
+      <mat-card *ngFor="let rule of edge.rules; let i =index" class="rule">
+        <mat-card-header>
+          <mat-card-title>Edit {{ getHumanReadableRuleTitle(rule.type) }}</mat-card-title>
+          <mat-card-subtitle>
+            <mat-select [(value)]="rule.type" (selectionChange)="onRuleTypeChange()">
+              <mat-option *ngFor="let ruleType of ruleTypeList" [value]="ruleType">
+                {{ getHumanReadableRuleTitle(ruleType) }}
+              </mat-option>
+            </mat-select>
+          </mat-card-subtitle>
+
+          <button
+            mat-icon-button
+            aria-label="Delete Rule"
+            (click)="onDeleteRule(rule)"
+            class="delete-rule"
+          >
+            <mat-icon aria-label="Delete rule">delete</mat-icon>
+          </button>
+        </mat-card-header>
+
+        <mat-card-content>
+          <semantic-match-rule-editor
+            *ngIf="rule.type === ruleTypes.SEMANTIC_MATCH"
+            [(rule)]="edge.rules[i]"
+            [edge]="edge"
+          >
+          </semantic-match-rule-editor>
+
+          <repeated-fail-rule-editor *ngIf="rule.type === ruleTypes.REPEATED_FAIL" [(rule)]="edge.rules[i]">
+          </repeated-fail-rule-editor>
+        </mat-card-content>
+      </mat-card>
+
+      <mat-card class="add-rule">
+        <button mat-raised-button color="primary" (click)="onAddRule()">
+          <mat-icon>add</mat-icon>
+          Add Rule
+        </button>
+      </mat-card>
+    </div>
+  </mat-tab>
+
+  <mat-tab label="Conditions">
+    <div class="conditions">
+      <mat-card>
+        <mat-card-header>
+          <mat-card-title>Conditions</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <div *ngFor="let condition of edge.conditions; let i = index" class="condition">
+            <mat-select
+              class="condition-type-select"
+              [(value)]="condition.conditionType"
+              (selectionChange)="announceModified()"
+            >
+              <mat-option *ngFor="let conditionType of conditionTypeList" [value]="conditionType">
+                {{ getHumanReadableConditionTitle(conditionType) }}
+              </mat-option>
+            </mat-select>
+            <input
+              matInput
+              class="key-field"
+              [(ngModel)]="condition.key"
+              placeholder="Key"
+              (input)="announceModified()"
+            />
+            <input
+              matInput
+              class="value-field"
+              [(ngModel)]="condition.value"
+              placeholder="Value"
+              (input)="announceModified()"
+            />
+            <button
+              aria-label="Delete Condition"
+              mat-icon-button
+              (click)="deleteCondition(i)"
+              class="condition-delete-button"
+            >
+              <mat-icon aria-label="Delete condition">delete</mat-icon>
+            </button>
+          </div>
+          <form>
+            <button type="submit" mat-raised-button color="primary" (click)="onAddCondition()">
+              <mat-icon>add</mat-icon>
+              Add Condition
+            </button>
+          </form>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </mat-tab>
+
+  <mat-tab label="Mutations">
+    <div class="mutations">
+      <mat-card>
+        <mat-card-header>
+          <mat-card-title>Mutations</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <div *ngFor="let mutation of edge.mutations; let i = index" class="mutation">
+            <mat-select
+              class="mutation-type-select"
+              [(value)]="mutation.mutationType"
+              (selectionChange)="announceModified()"
+            >
+              <mat-option *ngFor="let mutationType of mutationTypeList" [value]="mutationType">
+                {{ getHumanReadableMutationTitle(mutationType) }}
+              </mat-option>
+            </mat-select>
+            <input
+              matInput
+              class="key-field"
+              [(ngModel)]="mutation.key"
+              placeholder="Key"
+              (input)="announceModified()"
+            />
+            <input
+              matInput
+              class="value-field"
+              [(ngModel)]="mutation.value"
+              placeholder="Value"
+              (input)="announceModified()"
+            />
+            <button
+              aria-label="Delete Mutation"
+              mat-icon-button
+              (click)="deleteMutation(i)"
+              class="mutation-delete-button"
+            >
+              <mat-icon aria-label="Delete mutation">delete</mat-icon>
+            </button>
+          </div>
+          <form>
+            <button type="submit" mat-raised-button color="primary" (click)="onAddMutation()">
+              <mat-icon>add</mat-icon>
+              Add Mutation
+            </button>
+          </form>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </mat-tab>
+</mat-tab-group>
+
+<button mat-raised-button class="delete-edge" color="accent" (click)="onDelete()">
+  <mat-icon>delete</mat-icon>
+  Delete Edge
+</button>
