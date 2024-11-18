@@ -24,7 +24,7 @@
     "@tensorflow-models/universal-sentence-encoder": "^1.2.2",
     "@tensorflow/tfjs": "^1.7.4",
     "d3": "^5.16.0",
-    "firebase": "^7.14.4",
+    "firebase": "^10.9.0",
     "rxjs": "~6.5.4",
     "tslib": "^1.10.0",
     "uuid": "^8.0.0",
